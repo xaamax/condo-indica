@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'categories',
     'provider',
     'ratings',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

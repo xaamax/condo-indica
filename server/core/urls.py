@@ -18,5 +18,6 @@ urlpatterns = [
     path('api/v1/', include('categories.urls')),
     path('api/v1/', include('provider.urls')),
     path('api/v1/', include('ratings.urls')),
+    path('api/v1/', include('dashboard.urls')),
     path('', admin.site.urls),
 ]
