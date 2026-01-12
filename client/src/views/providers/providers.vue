@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DataTable } from '@/components/ui/data-table'
-import { ProviderCompactDTO } from '@/core/dto/provider-dto'
+import type { ProviderCompactDTO } from '@/core/dto/provider-dto'
 import { providerService } from '@/services/provider-sevice'
 import { onMounted, ref } from 'vue'
 import { columns } from './components/provider-columns'
@@ -16,9 +16,9 @@ const loadProviders = async () => {
 }
 
 const displayLabels = [
+  { field: 'name', label: 'Nome' },
   { field: 'category', label: 'Categoria' },
-  { field: 'phone', label: 'Telefone' },
-  { field: 'address', label: 'Endereço' },
+  { field: 'reputation', label: 'Reputação' },
 ]
 
 onMounted(() => loadProviders())
@@ -33,7 +33,7 @@ onMounted(() => loadProviders())
       @update:table="loadProviders"
     >
       <template #toolbar-actions>
-        <Button size="sm" class="h-8" >
+        <Button size="sm" class="h-8" @click="$router.push({ name: 'prestadores_include' })">
           <Icon name="PlusCircle" class="mr-1 h-4 w-4" />
           Incluir prestador
         </Button>

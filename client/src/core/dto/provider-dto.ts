@@ -1,17 +1,21 @@
-import { CategoryDTO } from './category-dto';
+import type { AddressDTO } from './address-dto'
 
-
-export interface ProviderCompactDTO {
-  id: number
-  category: string
-  phone: string   
-  description: string   
-  address: string
+interface ProviderBaseDTO extends AddressDTO {
+  name: string
+  description: string
+  phone: string
+  category: number
 }
 
-export interface ProviderDTO {
+export interface ProviderCompactDTO extends ProviderBaseDTO {
   id: number
-  description: string   
-  phone: string   
-  category: CategoryDTO
+  reputation: number
+}
+
+export interface ProviderDTO extends ProviderBaseDTO {
+  id: number
+}
+
+export interface CreateUpdateProviderDTO extends ProviderBaseDTO {
+  id?: number
 }

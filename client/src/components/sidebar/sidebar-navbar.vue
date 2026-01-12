@@ -13,7 +13,6 @@ import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import {
   LogOut,
   User,
-  Bell,
   Sun,
   MoonStar,
   Menu,
@@ -30,7 +29,7 @@ const toggleMode = () => {
 
 <template>
   <nav class="flex items-center justify-between h-[64px] border-b-[1px] px-4 fixed z-40 top-0 bg-background/80 backdrop-blur-lg border-b border-border" :style="{ width: store.navWidth }">
-    <div class="w-24 hidden lg:block">
+    <div class="w-30 hidden lg:block">
       <Breadcrumb />
     </div>
     <Button
@@ -42,9 +41,6 @@ const toggleMode = () => {
       <Menu class="transition-all duration-500 text-black" />
     </Button>
     <div class="flex items-center">
-      <Button variant="outline" class="border-0 p-[6px] w-8 h-8">
-        <Bell />
-      </Button>
       <Button variant="outline" class="border-0 p-[6px] ml-2 w-8 h-8" @click="toggleMode">
         <Sun v-if="store.isDark" />
         <MoonStar v-else />

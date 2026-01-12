@@ -3,18 +3,17 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 from core.base_model import BaseModel
-from address.models import Address
 from provider.models import Provider
 
 
 class Condominium(BaseModel):
     name = models.CharField(max_length=100, verbose_name='Nome')
-    address = models.ForeignKey(
-        Address,
-        on_delete=models.CASCADE,
-        related_name='condominiuns',
-        verbose_name='Endereço'
-    )
+    cep = models.CharField(max_length=10, verbose_name='CEP')
+    street = models.CharField(max_length=100, verbose_name='Logradouro')
+    number = models.IntegerField(blank=True, null=True, verbose_name='Número')
+    neighborhood = models.CharField(max_length=100, verbose_name='Bairro')
+    city = models.CharField(max_length=100, verbose_name='Cidade')
+    state = models.CharField(max_length=100, verbose_name='Estado')
 
     class Meta:
         db_table = 'condominiuns'
@@ -22,7 +21,7 @@ class Condominium(BaseModel):
         verbose_name_plural = 'Condomínios'
 
     def __str__(self):
-        return f'{self.name} - {self.address}'
+        return self.name
 
 
 class CondominiumResident(BaseModel):

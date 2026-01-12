@@ -1,7 +1,10 @@
 <template>
   <div>
     <DataTableRowActions>
-      <DropdownMenuItem @click="isOpenDialogDetails = true">
+      <DropdownMenuItem
+        @click="$router.push(`/prestadores/${row.id}`)"
+        :disabled="!store.canUpdate($route.path)"
+      >
         <span>Editar</span>
         <DropdownMenuShortcut>
           <Icon name="Edit" :size="16" />
@@ -10,6 +13,7 @@
       <DropdownMenuSeparator />
       <DropdownMenuItem
         class="!text-red-500"
+        :disabled="!store.canDelete($route.path)"
         @click="isOpenDialogDelete = true"
       >
         Excluir
@@ -26,12 +30,15 @@ import { ref } from 'vue'
 import {
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
+  DropdownMenuShortcut
 } from '@/components/ui/dropdown-menu'
 import DataTableRowActions from '@/components/ui/data-table/datatable-row-actions.vue'
 // import DialogInvestmentDetails from './dialog-investment-details.vue'
 // import DialogInvestmentDelete from './dialog-investment-delete.vue'
 import type { ProviderCompactDTO } from '@/core/dto/provider-dto'
+import { useAppStore } from '@/stores/app'
+
+const store = useAppStore()
 
 defineProps<{
   row: ProviderCompactDTO

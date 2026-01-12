@@ -171,7 +171,7 @@ export const post = async <T>(url: string, params: any, config?: AxiosRequestCon
       .catch(treatCatch)
   )
 
-export const update = async <T>(url: string, params?: any, config?: AxiosRequestConfig) =>
+export const put = async <T>(url: string, params?: any, config?: AxiosRequestConfig) =>
     withLoading(() =>
     api
       .put(url, params, config)

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, type RouteMeta } from 'vue-router'
-import Wrapper from '@/components/layouts/wrapper.vue';
+import Wrapper from '@/components/layouts/wrapper.vue'
 import { useAppStore } from '@/stores/app'
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 
 interface IRouteMeta {
   title: string
@@ -12,15 +12,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/dashboard'
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('@/views/auth/auth.vue'),
       meta: {
-        title: 'Login',
-      } as RouteMeta & IRouteMeta,
+        title: 'Login'
+      } as RouteMeta & IRouteMeta
     },
     {
       path: '/',
@@ -28,7 +28,7 @@ const router = createRouter({
       redirect: '/dashboard',
       meta: {
         title: 'Ínicio',
-        requiresAuth: true,
+        requiresAuth: true
       },
       children: [
         {
@@ -36,7 +36,7 @@ const router = createRouter({
           name: 'dashboard',
           component: () => import('@/views/dashboard/dashboard.vue'),
           meta: {
-            title: 'Dashboard',
+            title: 'Dashboard'
           } as RouteMeta & IRouteMeta
         },
         {
@@ -44,7 +44,23 @@ const router = createRouter({
           name: 'prestadores_index',
           component: () => import('@/views/providers/providers.vue'),
           meta: {
-            title: 'Prestadores',
+            title: 'Prestadores'
+          } as RouteMeta & IRouteMeta
+        },
+        {
+          path: '/prestadores/incluir',
+          name: 'prestadores_include',
+          component: () => import('@/views/providers/provider-details.vue'),
+          meta: {
+            title: 'Incluir Prestador'
+          } as RouteMeta & IRouteMeta
+        },
+        {
+          path: '/prestadores/:id',
+          name: 'prestadores_change',
+          component: () => import('@/views/providers/provider-details.vue'),
+          meta: {
+            title: 'Editar Prestador'
           } as RouteMeta & IRouteMeta
         },
         {
@@ -52,7 +68,7 @@ const router = createRouter({
           name: 'user_index',
           component: () => import('@/views/dashboard/examples/user/Index.vue'),
           meta: {
-            title: 'User',
+            title: 'User'
           } as RouteMeta & IRouteMeta
         },
         {
@@ -60,37 +76,34 @@ const router = createRouter({
           name: 'settings_index',
           component: () => import('@/views/dashboard/examples/settings/Index.vue'),
           meta: {
-            title: 'Settings',
+            title: 'Settings'
           } as RouteMeta & IRouteMeta
-        },
-      ],
+        }
+      ]
     },
     {
       path: '/:pathMatch(.*)',
       name: 'not-found',
       component: () => import('@/views/404.vue'),
       meta: {
-        title: 'Page Not Found',
-      } as RouteMeta & IRouteMeta,
-    },
+        title: 'Page Not Found'
+      } as RouteMeta & IRouteMeta
+    }
   ]
-});
+})
 
 router.beforeEach((to, from, next) => {
   const appStore = useAppStore()
 
-  document.title = `CondoIndica | ${to.meta.title as string}`;
+  document.title = `CondoIndica | ${to.meta.title as string}`
 
-  const authFromCookie = JSON.parse(
-    Cookies.get('persist:condoindica') || '{}'
-  )
+  const authFromCookie = JSON.parse(Cookies.get('persist:condoindica') || '{}')
 
-    if (authFromCookie?.userData) {
+  if (authFromCookie?.userData) {
     appStore.setAuth(authFromCookie)
   }
 
   appStore.supportMode = !!Cookies.get('persist_main:condoindica')
-
 
   const isAuthenticated = !!appStore.auth?.userData?.authenticated
 

@@ -4,6 +4,7 @@ import type { ProviderCompactDTO } from '@/core/dto/provider-dto'
 import Checkbox from '@/components/ui/checkbox/Checkbox.vue'
 import DataTableHeader from '@/components/ui/data-table/datatable-header.vue'
 import DataTableProviderRowActions from './data-table-provider-row-actions.vue'
+import Icon from '@/components/ui/Icon.vue'
 
 export const columns = (
   _?: (index: number) => void,
@@ -26,6 +27,19 @@ export const columns = (
       })
   },
   {
+    accessorKey: 'name',
+    meta: { toolbar_title: 'Nome' },
+    filterFn: (row, columnId, filterValues) => {
+      if (!Array.isArray(filterValues)) return true
+      return filterValues.includes(row.getValue(columnId))
+    },
+    header: ({ column }) =>
+      h(DataTableHeader, {
+        column: column as Column<ProviderCompactDTO>,
+        title: 'Nome'
+      })
+  },
+  {
     accessorKey: 'category',
     meta: { toolbar_title: 'Categoria' },
     filterFn: (row, columnId, filterValues) => {
@@ -36,7 +50,7 @@ export const columns = (
       h(DataTableHeader, {
         column: column as Column<ProviderCompactDTO>,
         title: 'Categoria'
-      }),
+      })
   },
   {
     accessorKey: 'phone',
@@ -48,13 +62,33 @@ export const columns = (
     header: 'Telefone'
   },
   {
-    accessorKey: 'address',
-    meta: { toolbar_title: 'Endereço' },
-    filterFn: (row, columnId, filterValues) => {
-      if (!Array.isArray(filterValues)) return true
-      return filterValues.includes(row.getValue(columnId))
-    },
-    header: 'Endereço'
+    accessorKey: 'reputation',
+    meta: { toolbar_title: 'Reputação' },
+    header: ({ column }) =>
+      h(DataTableHeader, {
+        column: column as Column<ProviderCompactDTO>,
+        title: 'Reputação'
+      }),
+    cell: ({ row }) => {
+      const reputation = Number(row.original.reputation ?? 0)
+
+      return h('div', { class: 'flex gap-2 items-center' }, [
+        h(
+          'div',
+          { class: 'flex gap-1' },
+          Array.from({ length: 5 }).map((_, i) =>
+            h(Icon, {
+              key: i,
+              name: 'Star',
+              class: [
+                'h-4 w-4',
+                i < reputation ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+              ]
+            })
+          )
+        )
+      ])
+    }
   },
   {
     id: 'actions',

@@ -5,8 +5,7 @@ from .models import Condominium, CondominiumResident, CondominiumProvider
 @admin.register(Condominium)
 class CondominiumAdmin(admin.ModelAdmin):
     list_display = (
-        'name',
-        'address',)
+        'name',)
     list_filter = ('name',)
     search_fields = ('name',)
 

@@ -9,6 +9,7 @@ const props = defineProps<{
   prependIcon?: string
   placeholder?: string
   class?: HTMLAttributes['class'],
+  type?: string,
 }>()
 
 const emits = defineEmits<{
@@ -45,6 +46,7 @@ const onKeydown = (e: KeyboardEvent) => {
         prependIcon ? 'pl-12 left-placeholder' : ''
       ]"
       v-model="modelValue"
+      :type="type || 'text'"
       :placeholder="placeholder"
       @focus="onFocus"
       @blur="onBlur"

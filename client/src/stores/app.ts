@@ -34,9 +34,7 @@ export const useAppStore = defineStore('app', {
     wrapperLeftOffset: EXPAND,
     navWidth: `calc(100% - ${EXPAND}px)`,
     isLoading: false,
-    hideValuesCurrency: JSON.parse(
-      localStorage.getItem(HIDE_VALUES_CURRENCY_KEY) || 'true'
-    ),
+    hideValuesCurrency: JSON.parse(localStorage.getItem(HIDE_VALUES_CURRENCY_KEY) || 'true'),
     notifications: [],
     supportMode: false,
     auth: undefined
@@ -46,32 +44,32 @@ export const useAppStore = defineStore('app', {
     isDark: (s) => s.themeMode === DARK,
     sidebarExpanded: (s) => s.sidebarExpand,
 
-    // currentPermission: (s) => (path: string) => {
-    //   if (!s.auth?.userData?.permissoes) return null
-    //   const routeSegment = path.split('/')[1]
-    //   return s.auth.userData.permissoes.find(
-    //     (p: any) => p.restrito && p.url.replace(/^\//, '') === routeSegment
-    //   )
-    // },
+    currentPermission: (s) => (path: string) => {
+      if (!s.auth?.userData?.permissions) return null
+      const routeSegment = path.split('/')[1]
+      return s.auth.userData.permissions.find(
+        (p: any) => p.restrito && p.url.replace(/^\//, '') === routeSegment
+      )
+    },
 
-    // canView() {
-    //   return (path: string) => !!this.currentPermission(path)?.consultar
-    // },
-    // canCreate() {
-    //   return (path: string) => !!this.currentPermission(path)?.incluir
-    // },
-    // canUpdate() {
-    //   return (path: string) => !!this.currentPermission(path)?.alterar
-    // },
-    // canDelete() {
-    //   return (path: string) => !!this.currentPermission(path)?.excluir
-    // },
-    // viewOnly() {
-    //   return (path: string) => {
-    //     const p = this.currentPermission(path)
-    //     return p?.consultar && !p?.incluir && !p?.alterar && !p?.excluir
-    //   }
-    // }
+    canView() {
+      return (path: string) => !!this.currentPermission(path)?.view
+    },
+    canCreate() {
+      return (path: string) => !!this.currentPermission(path)?.add
+    },
+    canUpdate() {
+      return (path: string) => !!this.currentPermission(path)?.change
+    },
+    canDelete() {
+      return (path: string) => !!this.currentPermission(path)?.delete
+    },
+    viewOnly() {
+      return (path: string) => {
+        const p = this.currentPermission(path)
+        return p?.view && !p?.add && !p?.change && !p?.delete
+      }
+    }
   },
 
   actions: {
@@ -139,6 +137,6 @@ export const useAppStore = defineStore('app', {
       document.body.classList.remove(LIGHT, DARK)
       document.documentElement.classList.add(this.themeMode)
       document.body.classList.add(this.themeMode)
-    },
+    }
   }
 })

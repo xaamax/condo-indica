@@ -4,11 +4,11 @@ from .models import Provider
 
 class ProviderCompactSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source='category.name', read_only=True)
-    address = serializers.CharField(read_only=True)
+    reputation = serializers.FloatField(read_only=True)
     
     class Meta:
         model = Provider
-        fields = ['id', 'category', 'phone', 'description', 'address']
+        fields = ['id', 'name', 'category', 'phone', 'description', 'address', 'reputation']
 
 class ProviderSerializer(serializers.ModelSerializer):
         

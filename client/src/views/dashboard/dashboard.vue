@@ -6,7 +6,7 @@ import RecentSales from '@/components/examples/RecentSales.vue';
 import Overview from '@/components/examples/Overview.vue';
 
 import { dashboardService } from '@/services/dashboard-service';
-import { DashboardDTO } from '@/core/dto/dashboard-dto';
+import type { DashboardDTO } from '@/core/dto/dashboard-dto';
 import { onMounted, ref } from 'vue';
 
 const { getDashboard } = dashboardService();
@@ -23,11 +23,13 @@ onMounted(() => loadDashboard())
 
 <template>
   <div class="space-y-4">
-    <page-header title="Dashboard">
-      <div class="flex items-center space-x-2">
+    <page-header title="Dashboard" :hide-route-back="true">
+      <template #actions>
+        <div class="flex items-center space-x-2">
         <DateRangePicker />
         <Button prepend-icon="Search" size="icon" />
       </div>
+      </template>
     </page-header>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card v-for="(card, i) in dashboard?.cards" :key="i">
