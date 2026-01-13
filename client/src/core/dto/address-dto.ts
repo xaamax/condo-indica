@@ -5,4 +5,5 @@ export interface AddressDTO {
   neighborhood: string
   city: string
   state: string
+  address_full?: string
 }

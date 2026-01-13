@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { providerService } from '@/services/provider-sevice'
+import { providerService } from '@/services/provider-service'
 import type { ProviderCompactDTO, ProviderDTO } from '../dto/provider-dto'
 
 export const useProvider = () => {

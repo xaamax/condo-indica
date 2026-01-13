@@ -63,7 +63,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import SelectCategories from '@/components/custom/select-categories.vue'
-import { providerService } from '@/services/provider-sevice'
+import { providerService } from '@/services/provider-service'
 import { useRouter } from 'vue-router'
 import { toastSuccess } from '@/plugins/toaster'
 

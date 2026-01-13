@@ -21,7 +21,11 @@ class Condominium(BaseModel):
         verbose_name_plural = 'Condomínios'
 
     def __str__(self):
-        return self.name
+        return f'{self.name} - {self.address_full}'
+
+    @property
+    def address_full(self):
+        return f'{self.street}, {self.number} - {self.neighborhood} - {self.cep} - {self.city}/{self.state}'
 
 
 class CondominiumResident(BaseModel):

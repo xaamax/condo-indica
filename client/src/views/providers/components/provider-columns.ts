@@ -1,4 +1,4 @@
-import { h } from 'vue'
+import { h, type Ref } from 'vue'
 import type { Column, ColumnDef } from '@tanstack/vue-table'
 import type { ProviderCompactDTO } from '@/core/dto/provider-dto'
 import Checkbox from '@/components/ui/checkbox/Checkbox.vue'
@@ -7,8 +7,9 @@ import DataTableProviderRowActions from './data-table-provider-row-actions.vue'
 import Icon from '@/components/ui/Icon.vue'
 
 export const columns = (
-  _?: (index: number) => void,
-  toogleRefreshTable?: () => void
+  toggleExpandedRow?: (index: number) => void,
+  toogleRefreshTable?: () => void,
+  expandedRow?: Ref<number | null>
 ): ColumnDef<ProviderCompactDTO>[] => [
   {
     id: 'id',
@@ -94,10 +95,26 @@ export const columns = (
     id: 'actions',
     cell: ({ row }) =>
       h('div', { class: 'flex gap-2 items-center justify-end' }, [
-        h(DataTableProviderRowActions, {
-          row: row.original,
-          toogleRefreshTable: toogleRefreshTable ?? (() => {})
-        })
+        h(
+          'button',
+          {
+            class: 'text-gray-500 hover:text-gray-700',
+            ...(toggleExpandedRow && {
+              onClick: () => toggleExpandedRow(row.index)
+            })
+          },
+          [
+            h(Icon, {
+              name: expandedRow?.value === row.index ? 'ChevronUp' : 'ChevronDown'
+            })
+          ]
+        ),
+        h('div', { class: 'flex gap-2 items-center justify-end' }, [
+          h(DataTableProviderRowActions, {
+            row: row.original,
+            toogleRefreshTable: toogleRefreshTable ?? (() => {})
+          })
+        ])
       ])
   }
 ]

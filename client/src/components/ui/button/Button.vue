@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
     :class="cn(buttonVariants({ variant, size }), props.class)"
     class="flex items-center"
   >
-    <Icon v-if="prependIcon" :name="prependIcon" class="m-auto h-6 w-6" />
+    <Icon v-if="prependIcon" :name="prependIcon" class="m-auto mr-1 h-6 w-6" />
     <slot />
   </Primitive>
 </template>

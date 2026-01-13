@@ -9,6 +9,8 @@ class CondominiumSerializer(serializers.ModelSerializer):
 
 
 class CondominiumResidentSerializer(serializers.ModelSerializer):
+    condominium = serializers.StringRelatedField()
+    
     class Meta:
         model = CondominiumResident
         fields = '__all__'

@@ -31,21 +31,16 @@ export const APP_MENU: Record<string, { name: string; routes: IDashboardMenus[] 
       }
     ]
   },
-  settings: {
-    name: 'Configurações',
-    routes: [
-      {
-        title: 'Adminstração',
-        icon: 'Lock',
-        path: 'adminstracao',
-      },
-      {
-        title: 'Suporte',
-        icon: 'Settings',
-        path: 'suporte',
-      }
-    ]
-  }
+  // settings: {
+  //   name: 'Configurações',
+  //   routes: [
+  //     {
+  //       title: 'Suporte',
+  //       icon: 'Settings',
+  //       path: 'suporte',
+  //     }
+  //   ]
+  // }
 }
 
 export const globalSearch = {}

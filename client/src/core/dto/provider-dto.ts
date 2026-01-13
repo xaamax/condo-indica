@@ -1,4 +1,5 @@
 import type { AddressDTO } from './address-dto'
+import type { CategoryDTO } from './category-dto'
 
 interface ProviderBaseDTO extends AddressDTO {
   name: string
@@ -10,6 +11,7 @@ interface ProviderBaseDTO extends AddressDTO {
 export interface ProviderCompactDTO extends ProviderBaseDTO {
   id: number
   reputation: number
+  address: string
 }
 
 export interface ProviderDTO extends ProviderBaseDTO {
@@ -18,4 +20,10 @@ export interface ProviderDTO extends ProviderBaseDTO {
 
 export interface CreateUpdateProviderDTO extends ProviderBaseDTO {
   id?: number
+}
+
+export interface ProviderCategoryDTO {
+  id: number
+  name: string
+  category: CategoryDTO
 }

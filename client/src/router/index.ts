@@ -64,19 +64,11 @@ const router = createRouter({
           } as RouteMeta & IRouteMeta
         },
         {
-          path: '/user',
-          name: 'user_index',
-          component: () => import('@/views/dashboard/examples/user/Index.vue'),
+          path: '/avaliacoes',
+          name: 'ratings_index',
+          component: () => import('@/views/ratings/ratings.vue'),
           meta: {
-            title: 'User'
-          } as RouteMeta & IRouteMeta
-        },
-        {
-          path: '/settings',
-          name: 'settings_index',
-          component: () => import('@/views/dashboard/examples/settings/Index.vue'),
-          meta: {
-            title: 'Settings'
+            title: 'Avaliações'
           } as RouteMeta & IRouteMeta
         }
       ]
@@ -106,6 +98,11 @@ router.beforeEach((to, from, next) => {
   appStore.supportMode = !!Cookies.get('persist_main:condoindica')
 
   const isAuthenticated = !!appStore.auth?.userData?.authenticated
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    appStore.logout()
+    return next({ name: 'login' })
+  }
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     appStore.logout()

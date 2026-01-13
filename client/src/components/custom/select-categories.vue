@@ -22,7 +22,7 @@ import {
   SelectValue,
   SelectItem
 } from '@/components/ui/select'
-import { categoryService } from '@/services/category-sevice'
+import { categoryService } from '@/services/category-service'
 import { onMounted, ref, watch } from 'vue'
 import type { CategoryDTO } from '@/core/dto/category-dto'
 const { getCategories } = categoryService()
