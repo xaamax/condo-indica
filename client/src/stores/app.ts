@@ -53,16 +53,16 @@ export const useAppStore = defineStore('app', {
     },
 
     canView() {
-      return (path: string) => !!this.currentPermission(path)?.view
+      return (path: string) => this.auth?.userData.is_superuser || !!this.currentPermission(path)?.view
     },
     canCreate() {
-      return (path: string) => !!this.currentPermission(path)?.add
+      return (path: string) => this.auth?.userData.is_superuser || !!this.currentPermission(path)?.add
     },
     canUpdate() {
-      return (path: string) => !!this.currentPermission(path)?.change
+      return (path: string) => this.auth?.userData.is_superuser || !!this.currentPermission(path)?.change
     },
     canDelete() {
-      return (path: string) => !!this.currentPermission(path)?.delete
+      return (path: string) => this.auth?.userData.is_superuser || !!this.currentPermission(path)?.delete
     },
     viewOnly() {
       return (path: string) => {

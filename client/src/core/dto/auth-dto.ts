@@ -6,6 +6,8 @@ export interface LoginDTO {
 export interface UserDataDTO {
   name: string
   email: string
+  is_superuser: boolean
+  profile_current_id: number
   profile_current: string
   permissions: {
     url: string

@@ -74,6 +74,14 @@ const router = createRouter({
       ]
     },
     {
+      path: '/acesso-negado',
+      name: 'acesso-negado',
+      component: () => import('@/views/forbidden.vue'),
+      meta: {
+        title: 'Acesso negado'
+      } as RouteMeta & IRouteMeta
+    },
+    {
       path: '/:pathMatch(.*)',
       name: 'not-found',
       component: () => import('@/views/404.vue'),
@@ -85,28 +93,41 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const appStore = useAppStore()
+  const store = useAppStore()
 
   document.title = `CondoIndica | ${to.meta.title as string}`
 
   const authFromCookie = JSON.parse(Cookies.get('persist:condoindica') || '{}')
 
   if (authFromCookie?.userData) {
-    appStore.setAuth(authFromCookie)
+    store.setAuth(authFromCookie)
   }
 
-  appStore.supportMode = !!Cookies.get('persist_main:condoindica')
+  store.supportMode = !!Cookies.get('persist_main:condoindica')
 
-  const isAuthenticated = !!appStore.auth?.userData?.authenticated
+  const isAuthenticated = !!store.auth?.userData?.authenticated
+  const isAdmin = store.auth?.userData?.is_superuser
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    appStore.logout()
+    store.logout()
     return next({ name: 'login' })
   }
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    appStore.logout()
+    store.logout()
     return next({ name: 'login' })
+  }
+
+  const permissoes = store.auth?.userData?.permissions || []
+  const permissaoRota = permissoes.find((p: any) => to.path.startsWith(`/${p.url}`))
+
+  if (
+    to.meta.requiresAuth &&
+    !['/dashboard'].includes(to.path) &&
+    !isAdmin &&
+    (!permissaoRota || !permissaoRota.view)
+  ) {
+    return next({ name: 'acesso-negado' })
   }
 
   return next()

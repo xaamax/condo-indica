@@ -3,7 +3,7 @@ import type { Column, ColumnDef } from '@tanstack/vue-table'
 import type { ProviderDTO } from '@/core/dto/provider-dto'
 import Checkbox from '@/components/ui/checkbox/Checkbox.vue'
 import DataTableHeader from '@/components/ui/data-table/datatable-header.vue'
-import DataTableProviderRowActions from './data-table-provider-row-actions.vue'
+import DataTableProviderRowActions from './datatable-provider-row-actions.vue'
 import Icon from '@/components/ui/Icon.vue'
 
 export const columns = (
