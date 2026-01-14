@@ -1,11 +1,20 @@
 import type { CondominiumResidentDTO } from "./condominium-dto"
-import type { ProviderCategoryDTO, ProviderDTO } from "./provider-dto"
+import type { ProviderCategoryDTO } from "./provider-dto"
 
 export interface RatingDTO {
     id: number
     stars: number
     comment?: string
     provider: ProviderCategoryDTO
+    resident: CondominiumResidentDTO
+}
+
+export interface RatingListDTO {
+    id: number
+    stars: number
+    comment?: string
+    provider: string
+    category: string
     resident: CondominiumResidentDTO
 }
 

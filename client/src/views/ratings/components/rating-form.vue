@@ -10,7 +10,7 @@
           <FormItem>
             <FormControl>
               <FormLabel>Prestador</FormLabel>
-              <SelectCategories
+              <SelectProviders
                 :model-value="componentField.modelValue"
                 @update:model-value="componentField.onChange(Number($event))"
               />
@@ -51,14 +51,12 @@ import type { RatingDTO } from '@/core/dto/rating-dto'
 import FormData from '@/components/form-data.vue'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
-import SelectCategories from '@/components/custom/select-categories.vue'
-import { ratingService } from '@/services/rating-service'
-import { useRouter } from 'vue-router'
+import { useRating } from '@/core/composables/rating-composable'
 import { toastSuccess } from '@/plugins/toaster'
 import StarRating from '@/views/providers/components/star-rating.vue'
+import SelectProviders from '@/components/custom/select-providers.vue'
 
-const router = useRouter()
-const { submitRating } = ratingService()
+const { submitRating } = useRating()
 
 const props = defineProps<{
   defaultValues?: Partial<RatingDTO>
@@ -67,11 +65,10 @@ const props = defineProps<{
 const form = ref(props?.defaultValues || { ...initialValues })
 
 function saveRating(payload: RatingFormValues, addOther: boolean) {
-  const { id } = form.value
-  submitRating(payload, id).then((response) => {
+  submitRating(payload).then((response) => {
     if (response.success) {
       toastSuccess('Avaliação salva com sucesso!')
-      addOther && !id ? (form.value = { ...initialValues }) : emit('save:rating', addOther)
+      addOther ? (form.value = { ...initialValues }) : emit('save:rating', addOther)
     }
   })
 }

@@ -1,16 +1,15 @@
 <template>
   <Card class="w-full">
     <CardContent class="space-y-4 pt-4">
-      <!-- Topo: estrelas + categoria -->
       <div class="flex items-center justify-between">
         <div class="flex gap-1">
           <p class="text-base font-semibold">
-            {{ rating.provider.name }}
+            {{ rating.provider }}
           </p>
         </div>
 
         <span class="text-xs font-medium px-2 py-1 rounded bg-muted text-muted-foreground">
-          {{ rating.provider.category.name }}
+          {{ rating.category }}
         </span>
       </div>
       <div class="flex gap-1">
@@ -36,9 +35,9 @@
 
 <script setup lang="ts">
 import { Card, CardContent } from '@/components/ui/card'
-import type { RatingDTO } from '@/core/dto/rating-dto'
+import type { RatingListDTO } from '@/core/dto/rating-dto'
 
 defineProps<{
-  rating: RatingDTO
+  rating: RatingListDTO
 }>()
 </script>

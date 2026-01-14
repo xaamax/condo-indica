@@ -7,9 +7,9 @@
           prepend-icon="PlusCircle"
           size="sm"
           @click="isOpenDialogProfileDetails = true"
+          :disabled="store.auth?.userData.is_superuser"
           >Incluir avaliação</Button
         >
-        <Button variant="ghost_primary" prepend-icon="ListFilter" size="sm">Filtros</Button>
       </div>
       <BoxRating v-for="rating in ratings" :key="rating.id"
         :rating="rating"
@@ -25,15 +25,17 @@
 </template>
 
 <script setup lang="ts">
+  import { onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
-import type { RatingDTO } from '@/core/dto/rating-dto'
+import type { RatingListDTO } from '@/core/dto/rating-dto'
 import { ratingService } from '@/services/rating-service'
-import { onMounted, ref } from 'vue'
+import { useAppStore } from '@/stores/app'
 import DialogRatingDetails from './components/dialog-rating-details.vue'
 import BoxRating from '@/widgets/box-rating.vue'
 
+const store = useAppStore();
 const { getRatings } = ratingService()
-const ratings = ref<RatingDTO[]>([])
+const ratings = ref<RatingListDTO[]>([])
 const isOpenDialogProfileDetails = ref<boolean>(false)
 
 const loadRatings = async () =>
