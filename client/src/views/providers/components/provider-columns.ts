@@ -1,6 +1,6 @@
 import { h, type Ref } from 'vue'
 import type { Column, ColumnDef } from '@tanstack/vue-table'
-import type { ProviderCompactDTO } from '@/core/dto/provider-dto'
+import type { ProviderDTO } from '@/core/dto/provider-dto'
 import Checkbox from '@/components/ui/checkbox/Checkbox.vue'
 import DataTableHeader from '@/components/ui/data-table/datatable-header.vue'
 import DataTableProviderRowActions from './data-table-provider-row-actions.vue'
@@ -10,7 +10,7 @@ export const columns = (
   toggleExpandedRow?: (index: number) => void,
   toogleRefreshTable?: () => void,
   expandedRow?: Ref<number | null>
-): ColumnDef<ProviderCompactDTO>[] => [
+): ColumnDef<ProviderDTO>[] => [
   {
     id: 'id',
     header: ({ table }) =>
@@ -36,7 +36,7 @@ export const columns = (
     },
     header: ({ column }) =>
       h(DataTableHeader, {
-        column: column as Column<ProviderCompactDTO>,
+        column: column as Column<ProviderDTO>,
         title: 'Nome'
       })
   },
@@ -49,7 +49,7 @@ export const columns = (
     },
     header: ({ column }) =>
       h(DataTableHeader, {
-        column: column as Column<ProviderCompactDTO>,
+        column: column as Column<ProviderDTO>,
         title: 'Categoria'
       })
   },
@@ -67,7 +67,7 @@ export const columns = (
     meta: { toolbar_title: 'Reputação' },
     header: ({ column }) =>
       h(DataTableHeader, {
-        column: column as Column<ProviderCompactDTO>,
+        column: column as Column<ProviderDTO>,
         title: 'Reputação'
       }),
     cell: ({ row }) => {

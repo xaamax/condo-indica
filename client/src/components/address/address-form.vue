@@ -74,13 +74,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref } from 'vue'
 import Grid from '@/components/layouts/grid.vue'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { initialValues, schema, type AddressFormValues } from './data/address-schema'
+import { initialValues, schema } from './data/address-schema'
 import type { AddressDTO } from '@/core/dto/address-dto'
-import { useForm } from 'vee-validate'
 import FormData from '../form-data.vue'
 
 const props = defineProps<{
@@ -90,6 +89,6 @@ const props = defineProps<{
 const form = ref(props?.defaultValues || { ...initialValues })
 
 const emit = defineEmits<{
-  (e: 'update:address', value: Partial<AddressDTO>): void
+  (e: 'update:address', value: AddressDTO): void
 }>()
 </script>

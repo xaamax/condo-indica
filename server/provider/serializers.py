@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from categories.serializers import CategorySerializer
-
 from .models import Provider
 
 class ProviderCompactSerializer(serializers.ModelSerializer):
@@ -12,8 +10,6 @@ class ProviderCompactSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'category', 'phone', 'description', 'address', 'reputation']
 
 class ProviderSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
-        
     class Meta:
         model = Provider
         fields = '__all__'

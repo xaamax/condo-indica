@@ -1,5 +1,5 @@
 <template>
-  <PageHeader :title="`${id ? 'Editar' : 'Incluir'} Prestador`" />
+  <PageHeader :title="`${id ? 'Editar' : 'Incluir'} Prestador de Serviço`" />
   <Card class="p-4">
     <CardContent class="h-full p-0">
       <div class="flex h-full flex-col lg:flex-row lg:space-x-12">
@@ -15,16 +15,16 @@
                 desc="São as informações que serão exibidas para os moradores."
               >
                 <ProviderForm
-                  :default-values="provider"
-                  @update:provider="(values) => provider && Object.assign(provider, values)"
+                  :default-values="defaultValues"
+                  @update:provider="defaultValues = { ...defaultValues, ...$event }"
                 />
               </ContentSection>
             </template>
             <template #address>
               <ContentSection title="Endreço" desc="Informações de endereço do prestador.">
                 <AddressForm
-                  :default-values="provider"
-                  @update:address="(values) => provider && Object.assign(provider, values)"
+                  :default-values="defaultValues"
+                  @update:address="defaultValues = { ...defaultValues, ...$event }"
                 />
               </ContentSection>
             </template>
@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import type { CreateUpdateProviderDTO } from '@/core/dto/provider-dto'
+import type { ProviderDTO } from '@/core/dto/provider-dto'
 import ContentSection from '@/components/layouts/content-section.vue'
 import { Card, CardContent } from '@/components/ui/card'
 import SidebarNav from '@/components/sidebar-nav.vue'
@@ -58,6 +58,13 @@ const tabs = computed(() => [
   { target: 'address', label: 'Endereço', icon: 'MapPin' },
   { target: 'buildings', label: 'Condomínios', icon: 'Building' }
 ])
+
+const defaultValues = ref<Partial<ProviderDTO>>({})
+
+watch(provider, (values) => {
+  if (!values) return false
+  defaultValues.value = { ...values }
+})
 
 watch(
   id,

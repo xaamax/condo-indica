@@ -40,27 +40,27 @@ const router = createRouter({
           } as RouteMeta & IRouteMeta
         },
         {
-          path: '/prestadores',
+          path: '/prestadores_servicos',
           name: 'prestadores_index',
           component: () => import('@/views/providers/providers.vue'),
           meta: {
-            title: 'Prestadores'
+            title: 'Prestadores de Serviços'
           } as RouteMeta & IRouteMeta
         },
         {
-          path: '/prestadores/incluir',
+          path: '/prestadores_servicos/incluir',
           name: 'prestadores_include',
           component: () => import('@/views/providers/provider-details.vue'),
           meta: {
-            title: 'Incluir Prestador'
+            title: 'Incluir Prestador de Serviço'
           } as RouteMeta & IRouteMeta
         },
         {
-          path: '/prestadores/:id',
+          path: '/prestadores_servicos/:id',
           name: 'prestadores_change',
           component: () => import('@/views/providers/provider-details.vue'),
           meta: {
-            title: 'Editar Prestador'
+            title: 'Editar Prestador de Serviço'
           } as RouteMeta & IRouteMeta
         },
         {

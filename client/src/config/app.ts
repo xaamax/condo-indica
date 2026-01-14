@@ -18,9 +18,9 @@ export const APP_MENU: Record<string, { name: string; routes: IDashboardMenus[] 
         path: 'dashboard'
       },
       {
-        title: 'Prestadores',
+        title: 'Prestadores de Serviços',
         icon: 'Wrench',
-        path: 'prestadores',
+        path: 'prestadores_servicos',
         description: 'Manage Providers'
       },
       {

@@ -8,14 +8,10 @@ interface ProviderBaseDTO extends AddressDTO {
   category: number
 }
 
-export interface ProviderCompactDTO extends ProviderBaseDTO {
+export interface ProviderDTO extends ProviderBaseDTO {
   id: number
   reputation: number
   address: string
-}
-
-export interface ProviderDTO extends ProviderBaseDTO {
-  id: number
 }
 
 export interface CreateUpdateProviderDTO extends ProviderBaseDTO {

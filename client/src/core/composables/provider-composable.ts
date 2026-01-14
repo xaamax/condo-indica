@@ -1,11 +1,11 @@
 import { ref } from 'vue'
 import { providerService } from '@/services/provider-service'
-import type { ProviderCompactDTO, ProviderDTO } from '../dto/provider-dto'
+import type { ProviderDTO } from '../dto/provider-dto'
 
 export const useProvider = () => {
   const { getProviders, getProviderDetails, submitProvider } = providerService()
 
-  const providers = ref<ProviderCompactDTO[]>([])
+  const providers = ref<ProviderDTO[]>([])
   const provider = ref<ProviderDTO>()
 
   const loadProviders = () => getProviders().then((response) => (providers.value = response.data))

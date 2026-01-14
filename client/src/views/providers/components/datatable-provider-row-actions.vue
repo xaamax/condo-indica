@@ -2,7 +2,7 @@
   <div>
     <DataTableRowActions>
       <DropdownMenuItem
-        @click="$router.push(`/prestadores/${row.id}`)"
+        @click="$router.push(`/prestadores_servicos/${row.id}`)"
         :disabled="!store.canUpdate($route.path)"
       >
         <span>Editar</span>
